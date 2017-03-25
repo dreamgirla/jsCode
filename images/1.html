@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>自定义弹窗</title>
+	<script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body style="font-family:'楷体';-webkit-user-select:none;">
+<script type="text/javascript">
+	var showpopFrame = function(posX,posY,width,height,title,type,text){
+
+		if (type==prompt) {
+		var contain = document.createElement('div');
+		contain.style.cssText = "height:"+height +"px; width:"+ width +"px; background-color:#fff;border:1.5px #000 solid;box-shadow:0 1px 10px 3px rgb(183,189,203);border-radius:3px;margin-left:"+ posX +"px;margin-top:"+ posY +"px; cursor: default;";
+		document.body.appendChild(contain);
+
+		
+		var head = document.createElement('div');
+		head.style.cssText = "height:30px; width:"+ width +"-12px; background-color:rgb(71,84,93);color:#fff;padding-top:10px;padding-left:12px;font-size:19px;text-shadow:0 0 20px black;";
+	    head.innerHTML =  title ;
+	    contain.appendChild(head); 
+
+	    var close = document.createElement('a');
+		close.style.cssText = "height:6px; width:15px;padding-top:10px;float:right;margin-right:10px;background-image: url(images/cross.png);cursor:pointer";
+	    head.appendChild(close); 
+
+		 $(function(){
+		 	 $('a').click(function(event) {
+		 	 document.body.removeChild(contain);
+		    });
+		 
+		  })
+
+	    var name = document.createElement('div');
+		name.style.cssText = " margin-left:95px;margin-top:30px;float:left;font-weight:700;font-size:19px;";
+		name.innerHTML = "账号：";
+	    contain.appendChild(name); 
+
+	    var content = document.createElement('div');
+	    content.style.cssText = "margin-top:30px;";
+	    content.innerHTML = "<input type='text' >";
+	    contain.appendChild(content);};
+		
+		var word = document.createElement('div');
+		word.style.cssText = "margin-top:20px;float:left;margin-left:95px;font-weight:700;font-size:19px;clear:both;";
+		word.innerHTML = "密码：";
+	    contain.appendChild(word); 
+
+		var contents = document.createElement('div');
+	    contents.style.cssText = "margin-top:20px;margin-left:100px;";
+	    contents.innerHTML = "<input type='password' >";
+	    contain.appendChild(contents);
+		
+		var btns = document.createElement('h4');
+		btns.style.cssText = "width:70px;height:21px;background-color:rgb(232,222,255);clear:both;padding-top:5px;margin-left:260px;margin-top:26px;border-radius:4px;text-align:center;box-shadow:0 1px 1px 1px rgb(183,189,203);cursor:pointer;float:left;"
+	    btns.innerHTML = '确认';
+		contain.appendChild(btns);
+
+
+		 $(function(){
+		 	 $('h4').click(function(event) {
+		 	 	contain.removeChild(contents);
+		 	 	contain.removeChild(content);
+		 	 	contain.removeChild(word);
+		 	 	contain.removeChild(name);	
+		 	 	contain.removeChild(btn);
+		 	 	contain.removeChild(btns);
+		 	 	var texts = document.createElement('div');
+				texts.style.cssText = "height:200px; width:"+ width +"px;margin-top:60px;float:left;margin-left:150px;font-weight:700;font-size:19px;";
+				texts.innerHTML = "恭喜您验证成功！";
+			    contain.appendChild(texts); 
+
+		 	
+		    });
+		 
+		  })
+
+		var btn = document.createElement('p');
+		btn.style.cssText = "width:70px;height:21px;background-color:rgb(232,222,255);clear:both;padding-top:5px;margin-left:350px;border-radius:4px;text-align:center;box-shadow:0 1px 1px 1px rgb(183,189,203);cursor:pointer;float:left;margin-top:-47px;font-weight:900;"
+	    btn.innerHTML = '取消';
+		contain.appendChild(btn);
+
+		 $(function(){
+		 	 $('p').click(function(event) {
+		 	 document.body.removeChild(contain);
+		    });
+		 
+		  })
+
+	}
+
+	window.onload = function(){
+	showpopFrame(400,100,440,200,123,prompt,123);
+	};
+</script>
+</body>
+</html>
