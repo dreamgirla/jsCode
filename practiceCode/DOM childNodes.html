@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DOM</title>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function(){
+		var oUl = document.getElementById('ul1');
+
+		for(var i = 0;i<oUl.childNodes.length;i++){//childNodes(子节点)算空的文本节点
+			oUl.childNodes[1].style.background = 'red';
+	}
+}
+	
+</script>
+<ul id="ul1">
+	<li></li>
+	<li></li>
+</ul>
+</body>
+</html>

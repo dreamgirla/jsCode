@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>表格删除</title>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function()
+	{
+		var oTab = document.getElementById('tab1');	//获取表格
+		var oBtn = document.getElementById('btn1');	//获取按钮
+		var oTxt = document.getElementById('name');	//获取input中输入的name
+
+		oBtn.onclick = function()
+		{
+			for(var i = 0;i<oTab.tBodies[0].rows.length;i++)//循环所有行
+			{
+				var sTab = oTab.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();//查找第一行单元格 从表格中取到的值 
+				var sTxt = oTxt.value.toLowerCase();//从文本框中取到的值
+
+				var arr = sTxt.split(' ');//关键词搜索 split把字符串从' '处分隔 切成数组假设用户用空格分隔输入的关键字
+
+				oTab.tBodies[0].rows[i].style.background = '';//不符合要求颜色为空
+
+				for(var j = 0;j<arr.length;j++) //把分隔开的数组，每个关键字都找一遍
+				{
+					if (sTab.search(arr[j])!=-1)//search模糊搜索 找到并且返回字符串出现的位置，如果没找到返回-1
+					 {
+						oTab.tBodies[0].rows[i].style.background = 'red';
+					}
+				}
+			}
+		}
+
+	}
+</script>
+
+姓名：<input id="name" type="text" />
+<input type="button" value="查找" id="btn1" /><br></br>
+
+<table border="1" width="500" id="tab1">
+	<thead>
+		<td>ID</td>
+		<td>姓名</td>
+		<td>年龄</td>
+	</thead>	
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>Blue</td>
+			<td>22</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>张三</td>
+			<td>23</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>李四</td>
+			<td>27</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>王五</td>
+			<td>30</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>赵六</td>
+			<td>32</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>键盘控制移动</title>
+	<style type="text/css">
+	#div1{width: 100px;height:100px;background: #ccc;position: absolute;}
+	</style>
+	<script type="text/javascript">
+		document.onkeydown = function(ev){
+			var oEvent = ev||event;
+			var oDiv = document.getElementById('div1');
+			if (oEvent.keyCode == 37) {
+				oDiv.style.left = oDiv.offsetLeft-10+'px';
+			}else{
+				oDiv.style.left = oDiv.offsetLeft+10+'px';
+			}
+		};
+	</script>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>

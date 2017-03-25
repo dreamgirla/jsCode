@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>右侧悬浮框</title>
+	<style type="text/css">
+	#div1{width: 100px;height: 150px;background: red;position: absolute;right: 0;bottom:0;}
+	</style>
+</head>
+<body style="height:2000px;">
+<script type="text/javascript">
+	window.onscroll = function(){
+		var oDiv = document.getElementById('div1');
+		var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;//兼容
+
+		startMove(parseInt((document.documentElement.clientHeight - oDiv.offsetHeight)/2+scrollTop));// 除以2，可能会出现小数，会不停的抖动，parseInt取整，可视区的位置-物体高度+scrllTop
+	};
+	
+	var timer = null;
+
+	function startMove(iTarget){
+		var oDiv = document.getElementById('div1');
+
+		clearInterval(timer);
+		timer = setInterval(function(){
+			var speed = (iTarget-oDiv.offsetTop)/6;//速度
+			speed = speed>0?Math.ceil(speed):Math.floor(speed);//取整，向下，向上取整
+
+			if (oDiv.offsetTop == iTarget) {
+				clearInterval(timer);
+			}else{
+				oDiv.style.top = oDiv.offsetTop+speed+'px';
+			}
+		},30)
+	}
+</script>
+<div id="div1">
+	
+</div>
+
+
+</body>
+</html>

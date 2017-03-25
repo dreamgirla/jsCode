@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>拖拽</title>
+	<style type="text/css">
+	#div1{width: 200px;height: 200px;background: red;position: absolute;}
+	</style>
+	<script type="text/javascript">
+		window.onload = function()
+		{
+			var oDiv = document.getElementById('div1');
+
+			var disX = 0;//横向距离
+			var disY = 0;//纵向距离
+
+			oDiv.onmousedown = function(ev)
+			{
+				var oEvent = ev||event;
+
+				disX = oEvent.clientX-oDiv.offsetLeft;
+				disY = oEvent.clientY-oDiv.offsetTop;
+
+				//防止用户出可视区
+				document.onmousemove = function(ev)
+				{	
+				//鼠标脱离div时，div不再移动，所以使用document.onmousemove
+					//鼠标点击后出发onmousemove
+					var oEvent = ev||event;
+					var l = oEvent.clientX-disX;
+					var t = oEvent.clientY-disY;
+					//l,t代表物体位置
+
+					if (t<0)
+					{
+						t = 0;
+					}
+					else if (t>document.documentElement.clientHeight - oDiv.offsetHeight)
+					 {
+						t = document.documentElement.clientHeight-oDiv.offsetHeight;
+					}
+					if (l<0)
+					{
+						l = 0;
+					}
+					else if (l>document.documentElement.clientWidth - oDiv.offsetWidth) 
+					{
+						l = document.documentElement.clientWidth-oDiv.offsetWidth;
+					}
+
+				oDiv.style.left = l+'px';
+				oDiv.style.top = t+'px';
+				};
+
+				document.onmouseup = function()
+				{
+				//鼠标脱离div时，div不再移动，所以使用document.onmousemove
+					document.onmousemove = null;
+					document.onmouseup = null;
+				}
+				return false;//阻止默认事件，火狐在拖拽空div时，有bug
+			};
+		};
+	</script>
+</head>
+<body>
+<div id="div1"></div>
+
+</body>
+</html>

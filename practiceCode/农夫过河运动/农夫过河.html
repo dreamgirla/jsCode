@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>农夫过河</title>
+	<style type="text/css">
+		body{margin:0px;padding: 0px;}
+		#box{background-color: #C9C9C9;width: 100%;height: 665px;}
+		a{position: relative;top:300px;left:45%;color: #000;font-size: 24px;text-decoration: none;border:1px solid #000;padding: 6px;border-radius: 5px;box-shadow:1px 1px 1px 1px #ddd;}
+		#container{width:100%;height:665px;margin:0 auto; background-color:#3FE608;position: relative;display: none;background-image: url(小草地.jpg)}
+		#farmer,#wolf,#sheep,#cabbage{width: 130px;height: 130px;border:1px solid #000;top: 50px; left:300px; position: absolute;background-color: red;z-index: 1;}
+		#farmer{background-image: url(农夫.jpg);}
+		#wolf{left:450px;background-image: url(狼.jpg);}
+		#sheep{left:600px;background-image: url(羊.jpg);}
+		#cabbage{left:750px;background-image: url(白菜.jpg);}
+		img{width: 130px;height: 130px;}
+		#river{width: 100%;height: 200px;background-color: blue;top:230px;position: relative;background-image: url(河.jpg);background-repeat:repeat-x;}
+		#btn{width:75%;margin-left: 300px;margin-top: 420px;}
+	</style>
+	
+</head>
+<body>
+<script type="text/javascript">
+var timer = null;
+	function display(){
+		var oDiv10 = document.getElementById('container');
+		var oDiv11 = document.getElementById('box');
+		var oA = document.getElementById('start');
+ 			oDiv10.style.display = 'block';
+			oDiv11.style.background = '#fff';
+			oA.style.display = 'none';
+	}
+
+	function startMove(){
+		var oDiv1 = document.getElementById('farmer');
+		var oDiv2 = document.getElementById('sheep');
+		clearInterval(timer);//保证只执行一个定时器
+	var	timer = setInterval(function (){
+			var speed = 10;
+			if (oDiv1.offsetTop>=470&&oDiv2.offsetTop>=470) {
+				clearInterval(timer);
+			}else{//防止定时器执行第一遍，点击不会运动  
+				oDiv1.style.top = oDiv1.offsetTop+speed+'px';
+				oDiv2.style.top = oDiv2.offsetTop+speed+'px';		
+			}
+
+		},30);
+	}
+
+	function startMove2(){
+		var oDiv = document.getElementById('farmer');
+		clearInterval(timer);
+	var	timer = setInterval(function (){
+			var speed = -5;
+			if (oDiv.offsetTop<=50) {
+				clearInterval(timer);
+			}else{
+				oDiv.style.top = oDiv.offsetTop+speed+'px';		
+			}
+
+		},30);
+	}
+
+	function startMove3(){
+		var oDiv1 = document.getElementById('farmer');
+		var oDiv2 = document.getElementById('cabbage');
+		clearInterval(timer);
+	var	timer = setInterval(function (){
+			var speed = 5;
+			if (oDiv1.offsetTop>=470&&oDiv2.offsetTop>=470) {
+				clearInterval(timer);
+			}else{
+				oDiv1.style.top = oDiv1.offsetTop+speed+'px';
+				oDiv2.style.top = oDiv2.offsetTop+speed+'px';		
+			}
+
+		},30);
+	}
+
+	function startMove4(){
+		var oDiv3 = document.getElementById('farmer');
+		var oDiv4 = document.getElementById('sheep');
+		clearInterval(timer);
+	var	timer = setInterval(function (){
+			var speed = -5;
+			if (oDiv3.offsetTop<=50&&oDiv4.offsetTop<=50) {
+				clearInterval(timer);
+			}else{
+				oDiv3.style.top = oDiv3.offsetTop+speed+'px';
+				oDiv4.style.top = oDiv4.offsetTop+speed+'px';		
+			}
+
+		},30);
+	}
+
+	function startMove5(){
+		var oDiv5 = document.getElementById('farmer');
+		var oDiv6 = document.getElementById('wolf');
+		clearInterval(timer);
+	var	timer = setInterval(function (){
+			var speed = 5;
+			if (oDiv5.offsetTop>=470&&oDiv6.offsetTop>=470) {
+				clearInterval(timer);
+			}else{
+				oDiv5.style.top = oDiv5.offsetTop+speed+'px';
+				oDiv6.style.top = oDiv6.offsetTop+speed+'px';		
+			}
+
+		},30);
+	}
+
+	function startMove6(){
+		var oDiv7 = document.getElementById('farmer');
+		var oDiv8 = document.getElementById('sheep');
+		clearInterval(timer);
+	var	timer = setInterval(function (){
+			var speed = 5;
+			if (oDiv7.offsetTop>=470&&oDiv8.offsetTop>=470) {
+				clearInterval(timer);
+			alert("恭喜你成功帮助农夫把狼，羊，白菜运到北岸！！！");
+			}else{
+				oDiv7.style.top = oDiv7.offsetTop+speed+'px';
+				oDiv8.style.top = oDiv8.offsetTop+speed+'px';
+
+			}
+
+		},30);
+	}
+	
+</script>
+
+<div id="box">
+
+		<a id="start" onclick="display()" href="#">开始帮助农夫</a>
+
+	<div id="container">
+		
+			<div id="farmer">农夫</div>
+			<div id="sheep">羊</div>
+			<div id="wolf">狼</div>
+			<div id="cabbage">白菜</div>
+			<div id="river">河</div>
+
+		<div id="btn">
+			<input type="button" value="农夫带羊过河"  onclick="startMove()" />
+			<input type="button" value="农夫过河" onclick="startMove2()" />
+
+			<input type="button" value="农夫带白菜过河" onclick="startMove3()"/>
+			<input type="button" value="农夫带羊过河" onclick="startMove4()"/>
+			<input type="button" value="农夫带狼过河" onclick="startMove5()"/>
+			<input type="button" value="农夫带羊过河"onclick="startMove6()" />
+		</div>
+		
+	</div>
+</div>
+</body>
+</html>

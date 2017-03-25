@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>页面加载完成时发生</title>
+</head>
+<body>
+<input type="button" id="btn1" value="弹出a" />
+<script type="text/javascript">
+	window.onload = function(){
+		var oBtn = document.getElementById('btn1');
+
+		oBtn.onclick = function(){
+			alert('a');
+		}
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>css取样式设置样式</title>
+</head>
+<body>
+<script type="text/javascript">
+//obj和arguments[0]相同的
+//name和arguments[1]值是相同的
+	function css(obj,name,value){
+		if (arguments.length == 2) {//获取
+			return obj.style[name];
+		}
+		else{						//设置
+			obj.style[name] = value;
+		}
+	}
+	window.onload = function(){
+		var oDiv = document.getElementById('div1');
+		css(oDiv,"width","300px");
+	}
+</script>
+
+<div id="div1" style="width:200px;height: 200px;background:red;"></div>
+</body>
+</html>

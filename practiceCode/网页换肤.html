@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>网页换肤</title>
+	<link id="l1" rel="stylesheet" type="text/css" href="css/网页换肤2.css">
+</head>
+<body>
+<input type="button" value="皮肤1" onclick="skin2()" />
+<input type="button" value="皮肤2" onclick="skin1()" />
+<script type="text/javascript">
+	function skin1(){
+		var ol = document.getElementById("l1");
+		ol.href = 'css/网页换肤1.css';
+	}
+	function skin2(){
+		var ol = document.getElementById("l1");
+		ol.href='css/网页换肤2.css';
+	}
+</script>
+</body>
+</html>

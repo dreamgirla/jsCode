@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>事件绑定</title>
+	<script type="text/javascript">
+	//attachEvent(事件名，函数) （IE下）onclick
+
+		window.onload = function()
+		{
+			var oBtn = document.getElementById('btn1');
+
+			if (oBtn.attachEvent) 
+			{
+				oBtn.attachEvent('onclick',function()
+				{
+					alert('a');
+				});
+				oBtn.attachEvent('onclick',function()
+				{
+					alert('b');
+				})
+			}
+			else
+			{
+				//addEventListener(事件名，函数，flase)  (火狐，谷歌，IE9)click,a不会被覆盖
+				oBtn.addEventListener('click',function()
+				{
+					alert('a');
+				},false);
+				oBtn.addEventListener('click',function()
+				{
+					alert('b');
+				},false);
+			}
+		}
+	</script>
+</head>
+<body>
+<input type="button" id="btn1" value="按钮" />
+</body>
+</html>

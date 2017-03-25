@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>仿Flash</title>
+	<link rel="stylesheet" type="text/css" href="css/仿Flash.css">
+	<script type="text/javascript" src="运动框架.js"></script>
+	<script type="text/javascript">
+		function getByClass(oParent,sClass){
+			var aEle = oParent.getElementsByTagName('*');
+			var aResult = [];//选出来的元素
+
+			for(var i = 0;i<aEle.length;i++){
+				if (aEle[i].className == sClass) {//选出来额元素和输入的参数相同
+					aResult.push(aEle[i]);//加入到数组中
+				}
+			}
+
+			return aResult;
+		}
+
+		window.onload = function(){
+			var oDiv = document.getElementById('playimages');
+			var oBtnPrev = getByClass(oDiv,'prev')[0];
+			var oBtnNext = getByClass(oDiv,'next')[0];
+			var oMarkLeft = getByClass(oDiv,'mark_left')[0];
+			var oMarkRight = getByClass(oDiv,'mark_right')[0];
+
+			var oDivSmall = getByClass(oDiv,'small_pic')[0];
+			var oUlSmall = oDivSmall.getElementsByTagName('ul')[0];
+			var aLiSmall = oDivSmall.getElementsByTagName('li');
+
+			var oUlBig = getByClass(oDiv,'big_pic')[0];
+			var aLiBig = oUlBig.getElementsByTagName('li');
+
+			var nowZIndex = 2;//对应图片索引
+
+			var now = 0;
+
+			oUlSmall.style.width = aLiSmall.length*aLiSmall[0].offsetWidth+'px';
+			
+			//左右按钮
+			oBtnPrev.onmouseover = oMarkLeft.onmouseover = function(){
+				startMove(oBtnPrev,'opacity',100);
+			};//鼠标移入左边 oBtnPrev.onmouseover解决层级关系
+			oBtnPrev.onmouseout = oMarkLeft.onmouseout = function(){
+				startMove(oBtnPrev,'opacity',0);
+			};//鼠标移出左边
+			oBtnNext.onmouseover = oMarkRight.onmouseover = function(){
+				startMove(oBtnPrev,'opacity',100);
+			};
+			oBtnNext.onmouseout = oMarkRight.onmouseout = function(){
+				startMove(oBtnPrev,'opacity',0);
+			};
+
+			//大图切换
+
+			for(var i = 0;aLiSmall.length;i++){
+				aLiSmall[i].index = i;
+				aLiSmall[i].onclick = function(){
+					if (this.index == now) return;
+					now = this.index;
+					tab();
+				};
+				aLiSmall[i].onmouseover = function(){
+					startMove(this,'opacity',100);
+				};
+				aLiSmall[i].onmouseout = function(){
+					if (this.index != now) {
+						startMove(this,'opacity',60);
+					}
+				};
+			}
+			function tab(){
+				aLiBig[now].style.ZIndex = nowZIndex++;
+
+				for(var i = 0;aLiSmall.length;i++){
+					startMove(aLiSmall[i],'opacity',60);
+				}
+				startMove(aLiSmall[i],'opacity',100);
+
+				aLiBig[now].style.height = 0;
+				startMove(aLiBig[now],'height',320);
+
+				if (now == 0) {
+					startMove(oUlSmall,'left',0);
+				}
+				else if (now == aLiSmall.length-1) {
+					startMove(oUlSmall,'left',-(now-2)*aLiSmall[0].offsetWidth);
+				}
+				else{
+					startMove(oUlSmall,left,-(now-1)*aLiSmall[0].offsetWidth);
+				}
+			}
+
+			oBtnPrev.onclick = function(){
+				now--;
+				if (now == -1) {
+					now = aLiSmall.length-1;
+				}
+				tab();
+			};
+			oBtnNext.onclick = function(){
+				now++;
+				if (now == aLiSmall.length) {
+					now = 0;
+				}
+				tab();
+			};
+
+			var timer = setInterval(oBtnNext.onclick,2000);
+
+			oDiv.onmouseover = function(){
+				clearInter(timer);
+			};
+			oDiv.onmouseout = function(){
+				timer = setInterval(oBtnNext.onclick,2000);
+			};
+		};
+	</script>
+</head>
+<body>
+<div id="playimages" class="play">
+	<ul class="big_pic">
+		<div class="prev"></div>
+		<div class="next"></div>
+
+		<div class="text">加载图片说明...</div>
+		<div class="length">计算图片数量...</div>
+
+		<a href="#" class="mark_left"></a>
+		<a href="#" class="mark_right"></a>
+		<div class="bg"></div>
+
+		<li style="z-index: 1;"><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/13.jpg"></li>
+		<li><img src="images/9.jpg"></li>
+		<li><img src="images/11.jpg"></li>
+	</ul>
+
+	<div class="small_pic">
+		<ul style="width:390px;">
+			<li ><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/13.jpg"></li>
+		<li><img src="images/9.jpg"></li>
+		<li><img src="images/11.jpg"></li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

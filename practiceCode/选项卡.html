@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>选项卡</title>
+	<style type="text/css">
+	#div1 .active{background-color: yellow;}
+	#div1 div{width: 200px;height: 200px;background: #ccc;border:1px solid #999;display: none;}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function(){
+		var oDiv = document.getElementById('div1');
+		var aBtn = oDiv.getElementsByTagName('input');
+		var aDiv = oDiv.getElementsByTagName('div');
+
+		for(var i = 0;i<aBtn.length;i++){
+
+			aBtn[i].index = i;//索引当前div
+			aBtn[i].onclick = function(){//给所有按钮加点击事件
+				for(var i = 0;i<aBtn.length;i++){
+					aBtn[i].className = ' ';
+					aDiv[i].style.display='none';	//所有div隐藏
+				}
+		
+			this.className = 'active';//input高亮
+			// //alert(this.index);
+			aDiv[this.index].style.display='block';//显示当前div
+		};
+	}
+};
+</script>
+
+<div id="div1">
+	<input type="button" value="教育" class="active" />
+	<input type="button" value="培训" />
+	<input type="button" value="招生"/>
+	<input type="button" value="出国"/>
+	<div style="display: block;">11111</div>
+	<div>2222</div>
+	<div>3333</div>
+	<div>4444</div>
+</div>
+</body>
+</html>

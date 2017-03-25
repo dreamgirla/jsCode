@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>splice删除插入</title>
+</head>
+<body>
+<script type="text/javascript">
+	var arr = [1,2,3,4,5,6];
+//	arr.splice(2,3);//删除：splice(起点,长度) 弹出1，2，6
+
+	arr.splice(2,2,'a','b');//插入 splice(起点，长度，元素。。)  1,2,a,b,5,6
+	//alert(arr);
+
+	var a = [1,2,3];
+	var b = [4,5,6];
+	//alert(a.concat(b));//concat(数组2)数组链接
+
+	var arr2 = [1,2,3,4];
+	//alert(arr2.join('- -'));//join(分隔符)
+
+	var arr3 = ['float','width','alpha','zoom','left'];
+	arr3.sort();
+	//alert(arr3);
+
+	var arr4 = [12,8,99,19,112];
+	arr4.sort(function (n1,n2){//该函数要比较两个值，然后返回一个用于说明这两个值得相对顺序的数字
+	//	return n1-n2;
+		if (n1<n2) {
+			return -1;//在排序后的数组中n1应该出现在n2之前，则返回一个-1
+		}else if (n1>n2) {
+			return 1;
+		}else{
+			return 0; 
+		}
+	});
+	alert(arr4);
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BOM</title>
+	<script type="text/javascript">
+		window.onload = function()
+		{
+			var oTxt = document.getElementById('txt1');
+			var oBtn = document.getElementById('btn1');
+
+			oBtn.onclick = function()
+			{
+				var oNewWin = window.open('about:blank','_blank');//open用法
+				oNewWin.document.write(oTxt.value);
+				//document.write(),先清空，再写
+			};
+		};
+
+		
+	</script>
+</head>
+<body>
+<textarea id="txt1" rows="10" cols="40"></textarea><br>
+<input type="button" id="btn1" value="运行" />
+</body>
+</html>

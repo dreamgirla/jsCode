@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>点击兼容性写法</title>
+	<script type="text/javascript">
+		window.onload = function(){
+			document.onclick = function(ev){
+			//IE
+			//alert(event.clientX+','+event.clientY);
+
+			//FF
+			//alert(oEvent.clientX+','+oEvent.clientY);
+
+			var oEvent = ev||event;
+			//alert(oEvent.clientX+','+oEvent.clientY);
+
+			}
+		}
+	</script>
+</head>
+<body>
+<div style="background: #ccc;" onclick="alert(this.style.background);">1
+	<div style="background: green;" onclick="alert(this.style.background);">2
+		<div style="background: red;" onclick="alert(this.style.background);">3
+			
+		</div>
+	</div>
+</div>
+</body>
+</html>

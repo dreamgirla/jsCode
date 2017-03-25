@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>删除DOM元素</title>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function(){
+		var aA = document.getElementsByTagName('a');
+		var oUl = document.getElementById('ul1');
+
+		for(var i = 0;i<aA.length;i++){
+			aA[i].onclick = function(){
+				oUl.removeChild(this.parentNode);
+			};
+		}
+
+	};
+</script>
+
+<ul id="ul1">
+	<li>ASDASvgbhg<a href="#">删除</a></li>
+	<li>ASDASdasd<a href="#">删除</a></li>
+	<li>ASDASweqw<a href="#">删除</a></li>
+	<li>ASDASregvf<a href="#">删除</a></li>
+</ul>
+</body>
+</html>

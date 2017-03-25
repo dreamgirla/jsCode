@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>获取字符串一位,日期，offsetLeft</title>
+	<style type="text/css">
+	#div1{width: 200px;height: 200px;background-color: red;position:absolute;left:0;top: 50px; }
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	//var str = 'abcdef';
+	//alert(str[0]);
+	//alert(str.charAt(0));
+
+	//var oDate = new Date();
+	// alert(oDate.getFullYear());
+	// alert(oDate.getMonth()+1);
+	// alert(oDate.getDate());//日
+	// alert(oDate.getDay());//星期
+
+	setInterval(function(){
+		var oDiv = document.getElementById('div1');
+		oDiv.style.left = oDiv.offsetLeft+10+'px';
+	},30);
+</script>
+<div id="div1"></div>
+</body>
+</html>

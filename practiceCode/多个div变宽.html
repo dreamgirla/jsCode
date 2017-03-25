@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>多个div变宽</title>
+	<style type="text/css">
+		div{width: 100px;height:50px;background: red;margin:10px;}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function(){
+		var aDiv = document.getElementsByTagName('div');
+
+		for(var i = 0;i<aDiv.length;i++){
+			aDiv[i].timer = null;
+
+			aDiv[i].onmouseover = function(){
+				startMove(this,400);
+			}
+
+			aDiv[i].onmouseour = function(){
+				startMove(this,100);
+			};
+		}
+
+		var	timer = null;
+		function startMove(obj,iTarget){
+			clearInterval(obj,timer);
+			obj.timer = setInterval(function(){
+				var speed = (iTarget-obj.offsetWidth)/6;
+				speed = speed>0?Math.ceil(speed):Math.floor(speed);//取整
+
+				if (obj.offsetWidth == iTarget) {
+					clearInterval(obj,timer);
+				}else{
+					obj.style.width = obj.offsetWidth+speed+'px';
+				}
+			},30)
+		}
+	};
+</script>
+
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>

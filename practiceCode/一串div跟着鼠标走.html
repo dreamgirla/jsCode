@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>一串div跟着鼠标走</title>
+	<style type="text/css">
+	div{width: 20px;height: 20px;background: red;position: absolute;}
+	</style>
+	<script type="text/javascript">
+	//封装函数，因为要使用鼠标位置
+		function getPos(ev){
+			//clientX,Y一定要用scrollLeft,scrollTop
+			var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+			var scrollLeft = document.documentElement.scrollLeft||document.body.scrollLeft;
+			return {x: ev.clientX+scrollLeft,y: ev.clientY+scrollTop};
+			//clientXclientY鼠标在可视区的距离
+			//clientX+scrollLeft距离页面的顶部
+		}
+		document.onmousemove = function(ev){
+			//onmousemove当鼠标动的时候触发
+			var aDiv = document.getElementsByTagName('div');
+			var oEvent = ev||event;
+
+			var pos = getPos(oEvent);
+
+			for(var i = aDiv.length-1;i>0;i--){
+				aDiv[i].style.left = aDiv[i-1].offsetLeft+'px';
+				aDiv[i].style.top = aDiv[i-1].offsetTop+'px';
+				//从最后一个div循环，后一个跟前一个
+				}
+				//第一个div跟着鼠标走
+				aDiv[0].style.left = pos.x+'px';
+				aDiv[0].style.top = pos.y+'px';
+		}
+	</script>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>

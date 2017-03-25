@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>行间,offsetwidth bug</title>
+	<style type="text/css">
+	#div1{width:200px; height:200px;background: red;border:1px solid #000;}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	function getStyle(obj,name) {
+		if (obj.currentStyle) {
+			return obj.currentStyle[name];//获取不在行间的样式
+		}else{
+			return getComputedStyle(obj,false)[name];
+		}
+	}
+	setInterval(function(){
+		var oDiv = document.getElementById('div1');
+
+		oDiv.style.width = parseInt(getStyle(oDiv,'width'))-1+'px';
+	},30);
+</script>
+
+<div id="div1">offsetwidth算盒模型加上border，减宽度时，会加</div>
+</body>
+</html>

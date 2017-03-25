@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>淡入淡出</title>
+	<style type="text/css">
+	#div1{width: 200px;height: 200px;background: red;border:1px solid #000;alpha(opacity: :30);opacity: 0.3}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function(){
+		var oDiv = document.getElementById('div1');
+
+		oDiv.onmouseover = function(){
+			startMove(100);
+		};
+		oDiv.onmouseout = function(){
+			startMove(30);
+		};
+	};
+
+	var alpha = 30;
+	var timer = null;
+
+	function startMove(iTarge){
+		var oDiv = document.getElementById('div1');
+
+		clearInterval(timer);
+		timer = setInterval(function(){
+			var speed = 0;
+
+			if (alpha<iTarge) {
+				speed =2;
+			}else{
+				speed = -2;
+			}
+			if (alpha == iTarge) {
+				clearInterval(timer);
+			}else{
+				alpha += speed;
+
+				oDiv.style.filter = 'alpha(opacity:'+alpha+')'; /* 滤镜for IE8 and earlier */
+				oDiv.style.opacity = alpha/100; /* for IE9 and other browsers */
+			}
+		},30)
+	}
+</script>
+
+<div id="div1"></div>
+</body>
+</html>

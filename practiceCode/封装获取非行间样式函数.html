@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>封装非行间样式函数</title>
+</head>
+<body>
+<script type="text/javascript">
+	function getStyle(obj,name){
+		if (obj.currentStyle) {//获取非行间样式 兼容IE或者高的谷歌
+			return obj.currentStyle[name];
+		}
+		else{//Chrome ff IE9之前不可用
+			return getComputedStyle(obj,false)[name];
+		}
+	}
+	window.onload = function(){
+		var oDiv = document.getElementById('div1');
+		alert(getStyle(oDiv,'width'));
+	}
+</script>
+
+<div id="div1" style="width:200px;height: 200px;background:red;"></div>
+</body>
+</html>

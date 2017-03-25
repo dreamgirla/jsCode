@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>插入DOM元素</title>
+</head>
+<body>
+<script type="text/javascript">
+window.onload = function(){
+	var oBtn = document.getElementById('btn1');
+	var oUl = document.getElementById('ul1');
+	var oTxt = document.getElementById('txt1');
+
+	oBtn.onclick = function(){
+		var oLi = document.createElement('li');
+		var aLi = document.getElementsByTagName('li');
+
+		oLi.innerHTML = oTxt.value;
+		//父级.appendChild(子节点)
+		//oUl.appendChild(oLi);
+		if (aLi.length>0) {
+			oUl.insertBefore(oLi,aLi[0]);//如果列表的长度大于0，将插入的元素放到第一位
+		}else{
+			oUl.appendChild(oLi);
+		}
+	}
+}
+	
+</script>
+
+<input type="text" id="txt1" />
+<input type="button" id="btn1" value="创建li" />
+<ul id="ul1"></ul>
+</body>
+</html>

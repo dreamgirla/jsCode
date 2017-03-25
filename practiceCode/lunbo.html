@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#carousel_container{
+			width: 520px;
+			height: 280px;
+			margin: 200px auto;
+			position: relative;
+		}
+		#imgs{
+			width: 520px;
+			height: 280px;
+		}
+		#imgs img{
+			display: none;
+		}
+		#imgs .selected{
+			display: block;
+		}
+		#tab{
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+		}
+		#tab li{
+			float: left;
+			width: 13px;
+			height: 13px;
+			border-radius: 7px;
+			background: #000;
+			color: #fff;
+			text-align: center;
+			line-height: 20px;
+			margin-right: 2px;
+			cursor: pointer;
+		}
+		#tab .selected{
+			background: #df1c1c;
+		}
+		#arrows{
+			position: absolute;
+			left: 10px;
+			bottom: 10px;
+		}
+		#prev, #next{
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			background: #000;
+			color: #fff;
+			text-align: center;
+			line-height: 20px;
+			margin-right: 2px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="carousel_container">
+		<div id="imgs">
+			<img src="images/poster1.jpg" alt="" class="selected">
+			<img src="images/poster1.jpg" alt="">
+			<img src="images/poster1.jpg" alt="">
+			<img src="images/poster1.jpg" alt="">
+		</div>
+		<ul id="tab">
+			<li class="selected"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		
+	</div>
+	<div id="arrows">
+			<span id="prev">&lt;</span>
+			<span id="next">&gt;</span>
+	</div>
+	<script>
+		var oContainer = document.getElementById('carousel_container');
+		var oTab = document.getElementById('tab');
+		var aLi = oTab.getElementsByTagName('li');
+		var oImgs = document.getElementById('imgs');
+		var aImg = oImgs.getElementsByTagName('img');
+		var oPrev = document.getElementById('prev');
+		var oNext = document.getElementById('next');
+		var nowIdx = 0;//全局变量，存储当前选中的下标
+		function changeImg(idx){
+			nowIdx = idx;
+			for(var j=0; j<aLi.length; j++){
+				aLi[j].style.background = '#000';
+				aImg[j].style.display = 'none';
+			}
+			aLi[nowIdx].style.background = '#df1c1c';
+			aImg[nowIdx].style.display = 'block';
+		}
+		for(var i=0; i<aLi.length; i++){
+			aLi[i].index = i;
+			aLi[i].onmouseover = function(){
+				changeImg(this.index);
+			};
+		}
+		oPrev.onclick = oNext.onclick = function(){
+			if(this == oPrev){
+				nowIdx--;
+				if(nowIdx == -1){
+					nowIdx = aLi.length - 1;
+				}
+			}else{//点击next
+				nowIdx++;
+				if(nowIdx == aLi.length){
+					nowIdx = 0;
+				}
+			}
+			changeImg(nowIdx);
+		};
+
+		var timer = setInterval(function(){
+			oNext.onclick();
+		}, 1000);
+		oContainer.onmouseover = function(){
+			clearInterval(timer);
+		};
+		oContainer.onmouseout = function(){
+			clearInterval(timer);
+			timer = setInterval(function(){
+				oNext.onclick();
+			}, 1000);
+		};
+
+	</script>
+
+</body>
+</html>

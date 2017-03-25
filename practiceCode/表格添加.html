@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>表格添加</title>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function(){
+		var oTab = document.getElementById('tab1');	//获取表格
+		var oBtn = document.getElementById('btn1');	//获取按钮
+		var oName = document.getElementById('name');	//获取input中输入的name
+		var oAge = document.getElementById('age');	//获取input中输入的age
+
+		oBtn.onclick = function(){
+			var oTr = document.createElement('tr');
+			var oTd = document.createElement('td');
+			oTd.innerHTML = oTab.tBodies[0].rows.length+1;//内容行数加1 第一列的序号
+			oTr.appendChild(oTd);
+
+			var oTd = document.createElement('td');	//第二列的名字
+			oTd.innerHTML = oName.value;
+			oTr.appendChild(oTd);
+
+			var oTd = document.createElement('td');//第三列的年龄
+			oTd.innerHTML = oAge.value;
+			oTr.appendChild(oTd);
+
+			oTab.tBodies[0].appendChild(oTr);//tr放进表格中
+		}
+	}
+</script>
+
+姓名：<input id="name" type="text" />
+年龄：<input id="age" type="text" />
+<input type="button" value="添加" id="btn1" />
+
+<table border="1" width="500" id="tab1">
+	<thead>
+		<td>ID</td>
+		<td>姓名</td>
+		<td>年龄</td>
+	</thead>	
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>Blue</td>
+			<td>22</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>张三</td>
+			<td>23</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>李四</td>
+			<td>27</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>王五</td>
+			<td>30</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>赵六</td>
+			<td>32</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>

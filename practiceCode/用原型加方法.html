@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>用原型加方法</title>
+	<script type="text/javascript">
+		function createPerson(name,qq)//构造函数
+		{
+			//系统偷偷替咱们做
+			//var this = new Object();
+
+			//加工
+			this.name = name;
+			this.qq = qq;
+
+			//也会偷偷做一些
+			//return this;
+		}
+		createPerson.prototype.showName = function()//原型
+		{
+			alert('我的名字叫：'+this.name);
+		};
+
+		createPerson.prototype.showQQ = function()
+		{
+			alert('我的QQ号：'+this.qq);
+		};
+
+		var obj = new createPerson('blue','1111');
+		var obj2 = new createPerson('张三','2222');
+		obj.showName();
+		obj.showQQ();
+
+		obj2.showName();
+		obj2.showQQ();
+
+		alert(obj.showName == obj2.showName);
+	</script>
+</head>
+<body>
+
+</body>
+</html>

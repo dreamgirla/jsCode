@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>强制转换parseInt</title>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function(){
+		var oTxt1 = document.getElementById('txt1');
+		var oTxt2 = document.getElementById('txt2');
+		var oBtn = document.getElementById('btn1');
+
+		oBtn.onclick = function(){
+			var n1 = parseInt(oTxt1.value);//parseInt实现数字求和，不是数字拼接
+			var n2 = parseInt(oTxt2.value);
+
+			if (isNaN(n1)) {//isNaN();判断是否是NaN,NaN: Not a Number非数字
+				alert('你输入的第一个数字有误！');
+			}
+			else if(isNaN(n2)){
+				alert('您输入的第二个数字有误！');
+			}
+			else{
+				alert(n1+n2);
+			}
+		}
+	}
+</script>
+
+<input id="txt1" type="text" />
+<input id="txt2" type="text" />
+<input id="btn1" type="button"  value="求和" />
+</body>
+</html>

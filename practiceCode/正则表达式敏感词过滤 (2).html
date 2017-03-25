@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Window.onresize</title>
+	<style type="text/css">
+	#div1{width: 200px;height:150px;background: red;position: absolute;right: 0;bottom: 0;}
+	body{height: 2000px;}
+	</style>
+	<script type="text/javascript">
+		window.onscroll = window.onresize = function()
+		{
+			//IE、FF
+			//alert(document.documentElement.scrollTop);
+			
+			//chrome
+			//alert(document.body.scrollTop);
+	
+	var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+			
+			var oDiv = document.getElementById('div1');
+
+			oDiv.style.top = document.documentElement.clientHeight-oDiv.offsetHeight+scrollTop+'px';
+		};
+	</script>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
