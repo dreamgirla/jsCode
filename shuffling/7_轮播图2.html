@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#container{
+			width: 520px;
+			height: 280px;
+			margin: 200px auto;
+			position: relative;
+		}
+		#imgs{
+			width: 520px;
+			height: 280px;
+		}
+		#imgs img{
+			display: none;
+		}
+		#imgs .selected{
+			display: block;
+		}
+		#tab{
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+		}
+		#tab li{
+			float: left;
+			width: 20px;
+			height: 20px;
+			background: #000;
+			color: #fff;
+			text-align: center;
+			line-height: 20px;
+			margin-right: 2px;
+			cursor: pointer;
+		}
+		#tab .selected{
+			background: orange;
+		}
+		#arrows{
+			position: absolute;
+			left: 10px;
+			bottom: 10px;
+		}
+		#prev, #next{
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			background: #000;
+			color: #fff;
+			text-align: center;
+			line-height: 20px;
+			margin-right: 2px;
+			cursor: pointer;
+		}
+		#mask{
+			width: 520px;
+			height: 280px;
+			background: #ccc;
+			text-align: center;
+			line-height: 280px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			opacity: 0.8;
+			filter: alpha(opacity=80);
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="mask">加载中...</div>
+		<div id="imgs"></div>
+		<ul id="tab"></ul>
+		<div id="arrows">
+			<span id="prev">&lt;</span>
+			<span id="next">&gt;</span>
+		</div>
+	</div>
+	<script>
+		var oContainer = getElemById('container');
+		var oTab = getElemById('tab');
+		var aLi = getElemsByTagName(oTab, 'li');
+		var oImgs = getElemById('imgs');
+		var aImg = getElemsByTagName(oImgs, 'img');
+		var oPrev = getElemById('prev');
+		var oNext = getElemById('next');
+		var oMask = getElemById('mask');
+		var nowIdx = 0;//全局变量，存储当前选中的下标
+		var imgNum = 4;//记录图片的数量
+		var count = 0;//记录已经加载的图片的个数
+
+		//1.生成img标签，以及li标签
+		for(var i=0; i<imgNum; i++){
+			var oImg = new Image();
+			oImg.onload = function(){
+				count++;
+				if(count == imgNum){
+					loadSuccess();
+				}
+			};
+			oImg.src = 'img/' + (i + 1) + '.jpg';
+			oImgs.appendChild(oImg);
+
+			var oLi = document.createElement('li');
+			oLi.innerHTML = i + 1;
+			oTab.appendChild(oLi);
+		}
+
+
+		function loadSuccess(){
+			oContainer.removeChild(oMask);//删除遮罩层
+			changeImg(nowIdx);
+			for(var i=0; i<imgNum; i++){
+				aLi[i].index = i;
+				aLi[i].onmouseover = function(){
+					changeImg(this.index);
+				};
+			}
+			oPrev.onclick = oNext.onclick = function(){
+				if(this == oPrev){
+					nowIdx--;
+					if(nowIdx == -1){
+						nowIdx = imgNum - 1;
+					}
+				}else{//点击next
+					nowIdx++;
+					if(nowIdx == imgNum){
+						nowIdx = 0;
+					}
+				}
+				changeImg(nowIdx);
+			};
+			var timer = setInterval(function(){
+				oNext.onclick();
+			}, 1000);
+			oContainer.onmouseover = function(){
+				clearInterval(timer);
+			};
+			oContainer.onmouseout = function(){
+				timer = setInterval(function(){
+					oNext.onclick();
+				}, 1000);
+			};
+
+		}
+		function changeImg(idx){
+			nowIdx = idx;
+			for(var j=0; j<aLi.length; j++){
+				aLi[j].style.background = '#000';
+				aImg[j].style.display = 'none';
+			}
+			aLi[nowIdx].style.background = 'orange';
+			aImg[nowIdx].style.display = 'block';
+		}
+
+		function getElemById(id){
+			return document.getElementById(id);
+		}
+		function getElemsByTagName(obj, tag){
+			return obj.getElementsByTagName(tag);
+		}
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
