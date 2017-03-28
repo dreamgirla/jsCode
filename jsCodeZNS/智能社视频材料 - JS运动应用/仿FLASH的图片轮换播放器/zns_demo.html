@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>仿FLASH的图片轮换效果 —— www.zhinengshe.com 智能社</title>
+<link rel="stylesheet" type="text/css" href="zns_style.css">
+<script src="move.js"></script>
+<script>
+function getByClass(oParent, sClass)
+{
+	var aEle=oParent.getElementsByTagName('*');
+	var aResult=[];
+	
+	for(var i=0;i<aEle.length;i++)
+	{
+		if(aEle[i].className==sClass)//选出来额元素和输入的参数相同
+		aResult.push(aEle[i]);//加入到数组中
+		}
+	}
+	
+	return aResult;
+}
+
+window.onload=function ()
+{
+	var oDiv=document.getElementById('playimages');
+	var oBtnPrev=getByClass(oDiv, 'prev')[0];
+	var oBtnNext=getByClass(oDiv, 'next')[0];
+	var oMarkLeft=getByClass(oDiv, 'mark_left')[0];
+	var oMarkRight=getByClass(oDiv, 'mark_right')[0];
+	
+	var oDivSmall=getByClass(oDiv, 'small_pic')[0];
+	var oUlSmall=oDivSmall.getElementsByTagName('ul')[0];
+	var aLiSmall=oDivSmall.getElementsByTagName('li');
+	
+	var oUlBig=getByClass(oDiv, 'big_pic')[0];
+	var aLiBig=oUlBig.getElementsByTagName('li');
+	
+	var nowZIndex=2;//小图片对应大图片
+	
+	var now=0;//上一张下一张
+	
+	oUlSmall.style.width=aLiSmall.length*aLiSmall[0].offsetWidth+'px';//底下小图片UL的长度
+	
+	//左右按钮
+	oBtnPrev.onmouseover=oMarkLeft.onmouseover=function ()
+	{
+		startMove(oBtnPrev, 'opacity', 100);
+	};//鼠标移入左边 oBtnPrev.onmouseover解决层级关系
+	oBtnPrev.onmouseout=oMarkLeft.onmouseout=function ()
+	{
+		startMove(oBtnPrev, 'opacity', 0);
+	};
+	oBtnNext.onmouseover=oMarkRight.onmouseover=function ()
+	{
+		startMove(oBtnNext, 'opacity', 100);
+	};
+	oBtnNext.onmouseout=oMarkRight.onmouseout=function ()
+	{
+		startMove(oBtnNext, 'opacity', 0);
+	};
+	
+	//大图切换
+	for(var i=0;i<aLiSmall.length;i++)
+	{
+		aLiSmall[i].index=i;//选项卡一样
+		aLiSmall[i].onclick=function ()
+		{
+			if(this.index==now)return;//如果已经是这张图，就返回return，不会重复刷新
+			
+			now=this.index;
+			
+			tab();
+		};
+		
+		aLiSmall[i].onmouseover=function ()
+		{
+			startMove(this, 'opacity', 100);
+		};
+		aLiSmall[i].onmouseout=function ()
+		{
+			if(this.index!=now)//只有不是当前图片是才会改变透明度
+			{
+				startMove(this, 'opacity', 60);
+			}
+		};
+	}
+	
+	function tab()
+	{
+		aLiBig[now].style.zIndex=nowZIndex++;//小图相对的大图层级增加一
+		
+		for(var i=0;i<aLiSmall.length;i++)//小图移入移出淡入淡出，小图最开始全为60；
+		{
+			startMove(aLiSmall[i], 'opacity', 60);
+		}
+		
+		startMove(aLiSmall[now], 'opacity', 100);//再改移入那张图片透明度
+		
+		aLiBig[now].style.height=0;//从上往下拉
+		startMove(aLiBig[now], 'height', 320);
+		
+		//底下UL移动，小图移动
+		if(now==0)
+		{
+			startMove(oUlSmall, 'left', 0);//第0张图时，第一张图left相同
+		}
+		else if(now==aLiSmall.length-1)//最后一张度
+		{
+			startMove(oUlSmall, 'left', -(now-2)*aLiSmall[0].offsetWidth);//最后两张相同保证left
+		}
+		else
+		{
+			startMove(oUlSmall, 'left', -(now-1)*aLiSmall[0].offsetWidth);//往前移第n-1个乘以li的宽度
+		}
+	}
+	
+	oBtnPrev.onclick=function ()
+	{
+		now--;
+		if(now==-1)//减过头，返回最后一张
+		{
+			now=aLiSmall.length-1;
+		}
+		
+		tab();
+	};
+	
+	oBtnNext.onclick=function ()
+	{
+		now++;
+		if(now==aLiSmall.length)//从最后一张返回第一张
+		{
+			now=0;
+		}
+		
+		tab();
+	};
+	
+	var timer=setInterval(oBtnNext.onclick, 2000);//自动播放
+	
+	oDiv.onmouseover=function ()//鼠标移出暂停
+	{
+		clearInterval(timer);
+	};
+	oDiv.onmouseout=function ()//重新播放
+	{
+		timer=setInterval(oBtnNext.onclick, 2000);
+	};
+};
+</script>
+</head>
+
+<body>
+<div id="playimages" class="play">
+    <ul class="big_pic">
+
+		<div class="prev"></div>
+		<div class="next"></div>
+
+		<div class="text">加载图片说明……</div>
+		<div class="length">计算图片数量……</div>
+		
+		<a class="mark_left" href="javascript:;"></a>
+		<a class="mark_right" href="javascript:;"></a>
+		<div class="bg"></div>
+		
+        <li style="z-index:1;"><img src="images/1.jpg" /></li>
+        <li><img src="images/2.jpg" /></li>
+        <li><img src="images/3.jpg" /></li>
+        <li><img src="images/4.jpg" /></li>
+        <li><img src="images/5.jpg" /></li>
+        <li><img src="images/6.jpg" /></li>
+    </ul>
+    <div class="small_pic">
+        <ul style="width:390px;">
+            <li style="filter: 100; opacity: 1;"><img src="images/1.jpg" /></li>
+            <li><img src="images/2.jpg" /></li>
+            <li><img src="images/3.jpg" /></li>
+            <li><img src="images/4.jpg" /></li>
+            <li><img src="images/5.jpg" /></li>
+            <li><img src="images/6.jpg" /></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+  <html>
+   <head>
+    <title>无标题页</title>
+
+    <script language="javascript" type="text/javascript">
+ function NumberCheck(num) 
+ {
+  var re=/^\d*\.{0,1}\d{0,1}$/;
+  return re.exec(num) != null;
+ }
+ function check()
+ {
+  if (!NumberCheck(document.getElementById("a").value))
+  {
+   alert("格式不对");
+  }else{
+   alert("格式正确");
+  }
+ } 
+    </script>
+
+</head>
+<body>
+    <form method="post" action="">
+    <input type="text" id="a" />
+    <input type="button" onclick="check()" value="check" />
+    </form>
+</body>
+</html>

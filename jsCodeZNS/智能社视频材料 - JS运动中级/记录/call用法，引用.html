@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>call的用法,引用</title>
+	<script type="text/javascript">
+	// call可以改变函数执行时的this
+		function show(a,b)
+		{
+			alert('this是：'+this+'\na是：'+a+'\b是：'+b);
+		}
+		//show();是下面的简写
+		show.call('aba',1,2);//第一个参数是this，其余参数是传参
+
+		var arr1 = [1,2,3];
+		var arr2 = [1];
+
+		for(var i = 0;i<arr1.length;i++)
+		{
+			arr2.push(arr1[i]);//将arr1加到arr2后
+		}
+		arr2.push(4);//此时arr2后再加上4
+
+		alert(arr1);
+		alert(arr2);
+	</script>
+</head>
+<body>
+
+</body>
+</html>

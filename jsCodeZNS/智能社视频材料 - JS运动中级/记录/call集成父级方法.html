@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>call继承父级方法</title>
+	<script type="text/javascript">
+		function A()
+		{
+			this.abc = 12;
+		}
+		A.prototype.show = function()//A有一个show的方法
+		{
+			alert(this.abc);
+		}
+
+		//B继承A的属性
+		function B()
+		{
+			//this是new出来的 B()
+			A.call(this);//本来是给A加的属性，现在是给B加，call就可以继承父级的属性
+		}
+
+		B.prototype = A.prototype;
+		//A不应该瘦B的影响，现在是引用
+
+		for(var i in A.prototype)
+		{
+			B.prototype[i] = A.prototype[i];
+			//继承父级的方法
+			//这时不是引用，A没有fn方法
+		}
+		B.prototype.fn = function()
+		{
+			alert('abc');
+		}
+
+		var objB = new B();
+		var objA = new A();
+
+		objA.fn();//不应该有，fn是给B加的属性
+
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>面向对象写选项卡</title>
+	<style type="text/css">
+	#div1 input{background: white;}
+	#div1 input.active{background: yellow;}
+	#div1 div {width:200px;height:200px;background: #ccc;display: none;}
+	</style>
+	<script type="text/javascript">
+	//函数不能嵌套
+	//变量 ----> 属性
+	//函数 ----> 方法
+
+	// Window.onload 初始化整个程序
+	// 全局变量  添加this
+	// 原型添加方法
+	// fnClick不是函数了，是方法，fnClick前面加this
+	// aBtn前也需要加this
+		window.onload = function() //构造函数初始化整个对象
+		{//onload 初始化整个程序
+			new TabSwitch('div1');
+		};
+		function TabSwitch(id)//面向对象，不能固定id的名字
+		{
+			var _this = this;
+			var oDiv = document.getElementById(id);
+			//不是全局变量，加上this变量编程属性
+			this.aBtn = oDiv.getElementsByTagName('input');//从oDiv中选取input
+			this.aDiv = oDiv.getElementsByTagName('div');
+
+			for(var i = 0;i<this.aBtn.length;i++)
+			{
+				this.aBtn[i].index = i;
+				this.aBtn[i].onclick = function()
+				{	//所有的按钮添加事件
+					_this.fnClick(this);
+					//fnChlick时个方法，前面需要加this
+				};
+			}
+
+		};
+			TabSwitch.prototype.fnClick = function(oBtn)
+			{//添加方法
+				//alert(this);//本来指new出来的对象，实际上是按钮，因为它赋值给this.aBtn[i].onclick
+				for(var i =0;i<this.aBtn.length;i++)
+				{	//length
+					//所有class清空
+					this.aBtn[i].className = ' ';
+					this.aDiv[i].style.display = 'none';
+				}
+				oBtn.className = 'active';//表示当前对象
+				this.aDiv[oBtn.index].style.display = 'block';//显示当前div 
+			}
+	</script>
+</head>
+<body>
+<div id="div1">
+	<input class="active" type="button" value="aaa" />
+	<input type="button" value="bbb" />
+	<input type="button" value="ccc" />
+	<div style="display: block;">aaa</div>
+	<div>bbbfbfb</div>
+	<div>fgfgfgrrrr</div>
+
+</div>
+</body>
+</html>
